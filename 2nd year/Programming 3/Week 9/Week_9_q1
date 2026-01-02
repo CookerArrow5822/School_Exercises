@@ -1,0 +1,145 @@
+class Position:
+
+    def __init__(self, key, value, parent=None):
+        self.key = key
+        self.value = value
+        self.parent = parent
+        self.left = None
+        self.right = None
+
+    def __repr__(self):
+        return f"({self.key}, {self.value})"
+
+
+class BinarySearchTree:
+
+    def __init__(self):
+        self.root = None
+
+    def _subtree_min(self, node):
+        if node is None:
+            return None
+        while node.left is not None:
+            node = node.left
+        return node
+
+    def _subtree_max(self, node):
+        if node is None:
+            return None
+        while node.right is not None:
+            node = node.right
+        return node
+
+    def _transplant(self, u, v):
+        if u.parent is None:
+            self.root = v
+        elif u == u.parent.left:
+            u.parent.left = v
+        else:
+            u.parent.right = v
+        if v is not None:
+            v.parent = u.parent
+
+    def upsert(self, key, value):
+        if self.root is None:
+            self.root = Position(key, value, parent=None)
+            return self.root
+
+        cur = self.root
+        parent = None
+        while cur is not None:
+            parent = cur
+            if key == cur.key:
+                cur.value = value
+                return cur
+            elif key < cur.key:
+                cur = cur.left
+            else:
+                cur = cur.right
+
+        new_node = Position(key, value, parent=parent)
+        if key < parent.key:
+            parent.left = new_node
+        else:
+            parent.right = new_node
+        return new_node
+
+    def first(self):
+        return self._subtree_min(self.root)
+
+    def last(self):
+        return self._subtree_max(self.root)
+
+    def before(self, pos):
+        if pos is None:
+            return None
+        if pos.left is not None:
+            return self._subtree_max(pos.left)
+        cur = pos
+        while cur.parent is not None and cur == cur.parent.left:
+            cur = cur.parent
+        return cur.parent
+
+    def after(self, pos):
+        if pos is None:
+            return None
+        if pos.right is not None:
+            return self._subtree_min(pos.right)
+        cur = pos
+        while cur.parent is not None and cur == cur.parent.right:
+            cur = cur.parent
+        return cur.parent
+
+    def in_order_using_before(self):
+        result_desc = []
+        cur = self.last()
+        while cur is not None:
+            result_desc.append(cur)
+            cur = self.before(cur)
+        result_desc.reverse()
+        return result_desc
+
+    def in_order_using_after(self):
+        result = []
+        cur = self.first()
+        while cur is not None:
+            result.append(cur)
+            cur = self.after(cur)
+        return result
+
+    def find(self, key):
+        cur = self.root
+        while cur is not None:
+            if key == cur.key:
+                return cur
+            elif key < cur.key:
+                cur = cur.left
+            else:
+                cur = cur.right
+        return None
+
+    def delete(self, key_or_pos):
+        if isinstance(key_or_pos, Position):
+            node = key_or_pos
+        else:
+            node = self.find(key_or_pos)
+
+        if node is None:
+            return False
+
+        if node.left is None:
+            self._transplant(node, node.right)
+        elif node.right is None:
+            self._transplant(node, node.left)
+        else:
+            succ = self._subtree_min(node.right)
+            if succ.parent != node:
+                self._transplant(succ, succ.right)
+                succ.right = node.right
+                if succ.right is not None:
+                    succ.right.parent = succ
+            self._transplant(node, succ)
+            succ.left = node.left
+            if succ.left is not None:
+                succ.left.parent = succ
+        return True
