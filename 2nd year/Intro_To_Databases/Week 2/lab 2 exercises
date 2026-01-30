@@ -11,3 +11,7 @@ SELECT DISTINCT playerID FROM players_teams WHERE points > 400 and minutes < 900
 -- Q8. Return the name and the number of wins at home of the teams with ‘Chicago' in their name
 during the season 1994.
 SELECT DISTINCT name, homeWon FROM teams WHERE name LIKE "%Chicago%" and year = 1994
+
+-- Q8 Challenge : Return the name of the teams with ‘C’ in their name during the season 1994 where they
+won more games at home than away
+SELECT DISTINCT name FROM teams WHERE name LIKE "%C%" and year = 1994 and homeWon > awayWon
