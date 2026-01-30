@@ -9,3 +9,14 @@ SELECT DISTINCT rating FROM film ORDER BY rating ASC;
 
 -- Q6. List all films whose title starts with 'THE', ordered by title.
 SELECT title FROM film WHERE title LIKE "THE%" ORDER BY title ASC
+
+-- Q7. Get a list of cities in 'USA' where the city name contains the letter sequence 'New', ordered
+by name. (Hint : use country code in city table)
+SELECT Name from city WHERE CountryCode LIKE "N%" ORDER BY Name ASC
+
+-- Q8. Find all cities whose name ends with ‘burg’ , ordered by population descending.
+SELECT Name FROM city WHERE Name LIKE "%burg" ORDER BY Population DESC
+
+-- Q9. Which distinct languages represent the majority language in at least one country? Display
+ordered by percentage descending. (Hint: Use ‘countrylanguage’ table)
+SELECT DISTINCT Language FROM countrylanguage WHERE Percentage > 50 ORDER BY Percentage DESC
