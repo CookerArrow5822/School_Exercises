@@ -12,7 +12,7 @@ SELECT title FROM film WHERE title LIKE "THE%" ORDER BY title ASC
 
 -- Q7. Get a list of cities in 'USA' where the city name contains the letter sequence 'New', ordered
 by name. (Hint : use country code in city table)
-SELECT Name from city WHERE CountryCode LIKE "N%" ORDER BY Name ASC
+SELECT Name from city WHERE CountryCode = 'USA' and Name LIKE "%New%" ORDER BY Name ASC
 
 -- Q8. Find all cities whose name ends with ‘burg’ , ordered by population descending.
 SELECT Name FROM city WHERE Name LIKE "%burg" ORDER BY Population DESC
