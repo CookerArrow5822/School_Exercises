@@ -1,1 +1,11 @@
+-- lab 3 qs and solutions
+-- qs 1-3 were a repeat of 7 - 9 from week 2
 
+-- Q4. Show all films with rating 'PG' or 'PG-13', ordered by length (shortest first) and then title
+SELECT title FROM film WHERE rating = "PG" or rating = "PG-13" ORDER BY length ASC, title ASC
+
+-- Q5. List all distinct film ratings in the database, sorted alphabetically
+SELECT DISTINCT rating FROM film ORDER BY rating ASC; 
+
+-- Q6. List all films whose title starts with 'THE', ordered by title.
+SELECT title FROM film WHERE title LIKE "THE%" ORDER BY title ASC
