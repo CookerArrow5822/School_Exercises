@@ -3,6 +3,12 @@
 -- 1. Return the year and the average wins of the NBA teams after the 1990 season only when this
 average is less than 40 (Hint: Group By required)
 
+SELECT year, AVG(won) as avg_wins
+FROM teams
+WHERE year > 1990
+GROUP BY year
+HAVING avg_wins < 40
+
 
 -- 2. Find all the basketball coach IDs with more than 900 of wins, order by ascending number of
 losses (Hint: Group By required)
