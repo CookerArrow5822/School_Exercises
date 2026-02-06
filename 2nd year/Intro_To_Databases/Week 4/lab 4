@@ -1,1 +1,13 @@
+-- lab 4 qs and solutions
+
+-- 1. Return the year and the average wins of the NBA teams after the 1990 season only when this
+average is less than 40 (Hint: Group By required)
+
+
+-- 2. Find all the basketball coach IDs with more than 900 of wins, order by ascending number of
+losses (Hint: Group By required)
+
+
+-- 3. Print the players (playerID) of the Miami 1998 team with over 1200 minutes played. Use a
+nested query in your answer. (Challenge: Can you display the player names as well?
 
