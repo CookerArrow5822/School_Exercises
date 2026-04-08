@@ -1,1 +1,27 @@
 
+-- Q1 Find the NBA Coach of the Year IN 1995 and the number of games won
+
+select ac.coachID, c.won
+from awards_coaches ac, coaches c
+where ac.coachID = c.coachID
+and ac.year = c.year
+and ac.award = 'NBA Coach of the Year'
+and ac.year = 1995
+
+--Q2 Return the id of the player who in 1997 scored more than 1000 points and in 1996 played for
+-- Chicago Bulls and got more than 350 rebounds.
+
+SELECT DISTINCT pt97.playerID
+FROM players_teams pt97
+JOIN players_teams pt96
+ON pt97.playerID = pt96.playerID
+JOIN teams t
+ON pt96.year = t.year
+AND pt96.tmID = t.tmID
+WHERE pt97.year = 1997
+AND pt97.points > 1000
+AND pt96.year = 1996
+AND pt96.rebounds > 350
+AND pt96.tmID = 'CHI'
+
+-- Q3
